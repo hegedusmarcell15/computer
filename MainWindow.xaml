@@ -1,0 +1,23 @@
+﻿<Window x:Class="szamitogepek.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:szamitogepek"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1000">
+    <Grid>
+        <DataGrid x:Name="DG_adatok" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="245,0,0,0"/>
+        <TextBox x:Name="TB_OS" Margin="10,46,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
+        <Label x:Name="label01" Margin="10,10,0,0" Content="operációs rendszer" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
+        <Label x:Name="label02" Margin="10,94,0,0" Content="márka" Height="48" VerticalAlignment="Top" HorizontalAlignment="Left" Width="54"/>
+        <TextBox x:Name="TB_Marka" Margin="10,132,0,0" TextWrapping="Wrap" Height="33" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
+        <Label x:Name="LB03" Margin="10,182,0,0" Content="tipus" RenderTransformOrigin="0.531,0.494" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="46"/>
+        <Label x:Name="LB_kijelzo" Margin="10,284,0,0" Content="kijelző" Height="48" VerticalAlignment="Top" HorizontalAlignment="Left" Width="55"/>
+        <Label x:Name="LB_memory" Margin="10,407,0,0" Content="memória" Height="49" VerticalAlignment="Top" HorizontalAlignment="Left" Width="73"/>
+        <ComboBox x:Name="CB_tipus" Margin="10,222,0,0" Height="41" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
+        <CheckBox x:Name="CB_true" Content="van" Margin="10,342,0,0" IsChecked="True" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="49"/>
+        <TextBox x:Name="TB_memory" Margin="10,442,0,0" TextWrapping="Wrap" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153"/>
+        <CheckBox x:Name="CB_fals" Margin="10,379,0,0" Content="nincs" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"/>
+    </Grid>
+</Window>
