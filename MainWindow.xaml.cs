@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -25,37 +26,71 @@ namespace szamitogepek
         public MainWindow()
         {
             InitializeComponent();
-            DG_restock();
+            ReadComputer();
         }
-        private const string ConnectionSrting = "Server = localhost;Database=computer;Uid=root;password=;Sslmode=None";
-        private bool DG_restock() 
-        
+
+        private const string ConnString = "Server=localhost;Database=computer;Uid=root;SslMode=None";
+        private void Rendszer_Click(object sender, RoutedEventArgs e)
         {
-            using (var connection = new MySqlConnection(ConnectionSrting))
+            ReadOsystem();
+        }
+        private void computer_Click(object sender, RoutedEventArgs e)
+        {
+            ReadComputer();
+        }
+        private void ReadComputer()
+        {
+            try
             {
-                connection.Open();
-
-                string sql = $"SELECT `beszelgetesneve` FROM `blogtemak`";
-                MySqlCommand cmd = new MySqlCommand(sql, connection);
-
-                MySqlDataReader dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (var conn = new MySqlConnection(ConnString))
                 {
+                    string sql = "SELECT * FROM `comp`";
 
-                    var comment = new
+                    conn.Open();
+                    using (var da = new MySqlDataAdapter(sql, conn))
                     {
-                        name = dr.GetString(0)
-                    };
-                   
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        DG_adatok.ItemsSource = dt.DefaultView;
+                    }
+                    conn.Close();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+
+        }
+
+        private void ReadOsystem()
+        {
+            try
+            {
+                using (var conn= new MySqlConnection(ConnString))
+                {
+                    string sql = "SELECT * FROM `osystem`";
+
+                    conn.Open();
+                    using (var da = new MySqlDataAdapter(sql, conn))
+                    {
+
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        DG_adatok.ItemsSource = dt.DefaultView;
 
 
-                connection.Close();
 
+                    }
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
 
-                return true;
+            }
             }
         }
     }
-}

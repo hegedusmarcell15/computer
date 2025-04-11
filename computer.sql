@@ -1,27 +1,25 @@
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 CREATE DATABASE IF NOT EXISTS `computer` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `computer`;
 
-
-
 DROP TABLE IF EXISTS `comp`;
-CREATE TABLE IF NOT EXISTS `comp` (
-  `ID` int(36) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `comp` (
+  `ID` int(36) NOT NULL,
   `brand` varchar(37) NOT NULL,
   `type` varchar(30) NOT NULL,
   `Display` double NOT NULL,
   `Memory` int(11) NOT NULL,
   `CreatedTime` datetime NOT NULL,
-  `Osid` int(36) NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `Osid` (`Osid`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
-
+  `Osid` int(36) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `comp` (`ID`, `brand`, `type`, `Display`, `Memory`, `CreatedTime`, `Osid`) VALUES
 (1, 'sony', 'laptop', 1, 16, '2025-03-21 11:58:29', 1),
@@ -35,23 +33,37 @@ INSERT INTO `comp` (`ID`, `brand`, `type`, `Display`, `Memory`, `CreatedTime`, `
 (16, 'HP', 'asztali_PC', 1, 807, '2025-03-05 22:21:42', 1),
 (17, 'vivo', 'laptop', 1, 234, '2024-10-07 05:08:37', 3);
 
-
 DROP TABLE IF EXISTS `ossystem`;
-CREATE TABLE IF NOT EXISTS `ossystem` (
-  `name` varchar(27) NOT NULL,
-  `CreatedTime` datetime NOT NULL,
-  `ID` int(36) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `ossystem` (
+  `ID` int(36) NOT NULL,
+  `name` varchar(27) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `ossystem` (`ID`, `name`) VALUES
+(1, 'windows'),
+(2, 'linux'),
+(3, 'MacOS');
 
 
+ALTER TABLE `comp`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Osid` (`Osid`);
 
-INSERT INTO `ossystem` (`name`, `CreatedTime`, `ID`) VALUES
-('windows', '2025-03-02 11:57:46', 1),
-('linux', '2016-08-17 12:01:40', 2),
-('MacOS', '2016-12-07 12:01:40', 3);
+ALTER TABLE `ossystem`
+  ADD PRIMARY KEY (`ID`);
+
+
+ALTER TABLE `comp`
+  MODIFY `ID` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+ALTER TABLE `ossystem`
+  MODIFY `ID` int(36) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 
 ALTER TABLE `comp`
   ADD CONSTRAINT `comp_ibfk_1` FOREIGN KEY (`Osid`) REFERENCES `ossystem` (`ID`);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
